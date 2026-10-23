@@ -1,0 +1,169 @@
+:root {
+  --bg: #f4f6f5;
+  --card: #ffffff;
+  --text: #17201e;
+  --muted: #64716e;
+  --line: #e2e8e6;
+  --accent: #0f766e;
+  --accent-soft: #d8efec;
+  --warn: #b45309;
+  --warn-soft: #fdf0dc;
+  --danger: #b91c1c;
+  --danger-soft: #fde4e4;
+  --radius: 16px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101514;
+    --card: #1a2120;
+    --text: #e8eeec;
+    --muted: #93a19e;
+    --line: #2b3533;
+    --accent: #2dd4bf;
+    --accent-soft: #163a36;
+    --warn: #f59e0b;
+    --warn-soft: #3a2a10;
+    --danger: #f87171;
+    --danger-soft: #3b1a1a;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: "Heebo", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+}
+main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 16px 16px calc(32px + env(safe-area-inset-bottom));
+}
+.loading { text-align: center; color: var(--muted); padding: 80px 0; }
+
+h1 { font-size: 24px; margin: 8px 0 4px; font-weight: 800; }
+h2 { font-size: 18px; margin: 0 0 12px; font-weight: 700; }
+p { margin: 0 0 12px; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+/* כותרת עליונה */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.who {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 12px; font: inherit; color: inherit; cursor: pointer;
+}
+.month-nav { display: flex; align-items: center; gap: 4px; }
+.icon-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: none; background: transparent; color: var(--text);
+  font-size: 22px; cursor: pointer;
+}
+.icon-btn:disabled { opacity: .25; cursor: default; }
+.month-title { font-weight: 700; min-width: 110px; text-align: center; }
+
+/* יתרה */
+.balance { text-align: center; padding: 24px 18px; }
+.balance .label { color: var(--muted); font-size: 15px; }
+.balance .amount { font-size: 46px; font-weight: 800; letter-spacing: -1px; margin: 2px 0 10px; }
+.balance.low .amount { color: var(--warn); }
+.balance.over .amount { color: var(--danger); }
+.bar { height: 12px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent); border-radius: inherit; transition: width .3s; }
+.balance.low .bar > span { background: var(--warn); }
+.balance.over .bar > span { background: var(--danger); }
+.bar-legend { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); margin-top: 8px; }
+.daily { margin-top: 10px; font-size: 14px; color: var(--muted); }
+
+.notice {
+  background: var(--warn-soft); color: var(--text);
+  border-radius: var(--radius); padding: 16px 18px; margin-bottom: 14px;
+}
+
+/* טפסים */
+label { display: block; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+input, select {
+  width: 100%; font: inherit; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: 12px; padding: 12px 14px; margin-bottom: 12px;
+}
+input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.amount-input { font-size: 28px; font-weight: 700; text-align: center; }
+.row { display: flex; gap: 10px; }
+.row > * { flex: 1; min-width: 0; }
+
+.btn {
+  display: block; width: 100%; font: inherit; font-weight: 700;
+  padding: 14px; border-radius: 12px; border: none; cursor: pointer;
+  background: var(--accent); color: #fff;
+}
+@media (prefers-color-scheme: dark) { .btn { color: #06201d; } }
+.btn.secondary { background: var(--accent-soft); color: var(--accent); }
+.btn.link { background: none; color: var(--accent); padding: 8px; width: auto; display: inline; }
+.btn:disabled { opacity: .6; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chip {
+  font: inherit; font-size: 14px; padding: 7px 12px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--text); cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+@media (prefers-color-scheme: dark) { .chip[aria-pressed="true"] { color: #06201d; } }
+
+/* רשימת הוצאות */
+.list { list-style: none; margin: 0; padding: 0; }
+.list li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+.list li:last-child { border-bottom: none; }
+.list .main { flex: 1; min-width: 0; }
+.list .title { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.list .meta { font-size: 13px; color: var(--muted); }
+.list .sum { font-weight: 700; white-space: nowrap; }
+.del { border: none; background: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 4px 6px; }
+
+/* סיכום לפי קטגוריה ולפי אדם */
+.breakdown { display: grid; gap: 10px; }
+.breakdown .line { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 15px; }
+.breakdown .line .bar { grid-column: 1 / -1; height: 6px; }
+
+.tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+.tabs button {
+  flex: 1; font: inherit; font-size: 14px; padding: 8px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--text); cursor: pointer;
+}
+.tabs button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); border-color: transparent; font-weight: 700; }
+
+.people { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.person {
+  font: inherit; font-size: 18px; font-weight: 700; padding: 22px 10px;
+  border-radius: var(--radius); border: 1px solid var(--line);
+  background: var(--card); color: var(--text); cursor: pointer;
+}
+.person small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+
+.share { word-break: break-all; font-size: 13px; background: var(--bg); padding: 10px; border-radius: 10px; margin-bottom: 10px; direction: ltr; text-align: left; }
+
+.toast {
+  position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
+  background: var(--text); color: var(--bg); padding: 10px 18px; border-radius: 999px;
+  font-size: 15px; z-index: 10; max-width: calc(100% - 32px);
+}
+.footer { text-align: center; margin-top: 8px; }

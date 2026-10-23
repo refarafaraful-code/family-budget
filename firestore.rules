@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // מזהה המשפחה הוא קוד סודי ארוך שמועבר רק בקישור ההצטרפות.
+    // אי אפשר לקבל רשימה של כל המשפחות, רק לגשת למשפחה שאת הקוד שלה מכירים.
+    match /families/{familyId} {
+      allow get, create, update: if request.auth != null && familyId.size() >= 20;
+
+      match /months/{month} {
+        allow read: if request.auth != null;
+        allow create, update: if request.auth != null
+          && request.resource.data.amount is number
+          && request.resource.data.amount > 0;
+      }
+
+      match /expenses/{expenseId} {
+        allow read, delete: if request.auth != null;
+        allow create: if request.auth != null
+          && request.resource.data.amount is number
+          && request.resource.data.amount > 0
+          && request.resource.data.month is string;
+      }
+    }
+  }
+}
